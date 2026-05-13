@@ -30,7 +30,6 @@ export default function QuestionForm() {
         bg-[#07101D]
         p-8
         shadow-[0_0_40px_rgba(0,0,0,0.35)]
-        ml-5
       "
         >
             <div className="flex items-start justify-between">

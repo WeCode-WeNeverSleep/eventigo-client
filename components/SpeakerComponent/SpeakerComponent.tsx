@@ -33,13 +33,11 @@ const SpeakerComponent = () => {
     return (
         <div className="
         w-full
-        max-w-ml
         rounded-[28px]
         border border-[#132238]
         bg-[#07101D]
         p-8
         shadow-[0_0_40px_rgba(0,0,0,0.35)]
-        mr-5
         ">
             <h2 className="text-lg font-bold mb-3">Speakers</h2>
 

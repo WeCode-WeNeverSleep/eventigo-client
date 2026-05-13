@@ -6,10 +6,15 @@ export default function Home() {
   return (
     <>
       <ModeToggle />
-        <div className="flex flex-col md:flex-row gap-6">
-            <QuestionForm/>
-            <SpeakerComponent/>
+      <div className="flex flex-col md:flex-row px-5">
+        <div className="md:w-2/3 w-full">
+          <QuestionForm />
         </div>
+
+        <div className="md:w-1/3 w-full">
+          <SpeakerComponent />
+        </div>
+      </div>
     </>
   );
 }
