@@ -24,12 +24,13 @@ export default function QuestionForm() {
         <div
             className="
         w-full
-        max-w-4xl
+        max-w-3xl
         rounded-[28px]
         border border-[#132238]
         bg-[#07101D]
         p-8
         shadow-[0_0_40px_rgba(0,0,0,0.35)]
+        ml-5
       "
         >
             <div className="flex items-start justify-between">
