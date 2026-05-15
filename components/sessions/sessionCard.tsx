@@ -20,13 +20,13 @@ export const SessionCard = ({ session }: SessionCardProps) => {
       .join("")
       .toUpperCase();
 
-  const countdown = useCountdown(session.starTime);
-  const getDuration = (ms: Date) => {
-    const hours = ms.getHours();
-    const minutes = ms.getMinutes();
+  const countdown = useCountdown(session.startTime);
+  const getDuration = (s: Date) => {
+    const hours = s.getHours();
+    const minutes = s.getMinutes();
     return { hours, minutes };
   };
-  const starTime = getDuration(session.starTime);
+  const starTime = getDuration(session.startTime);
   const endTime = getDuration(session.endTime);
 
   return (

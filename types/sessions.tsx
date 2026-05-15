@@ -5,7 +5,7 @@ export interface Session {
   id: string;
   title: string;
   description: string;
-  starTime: Date;
+  startTime: Date;
   endTime: Date;
   capacity: number | null;
   room: Room;
