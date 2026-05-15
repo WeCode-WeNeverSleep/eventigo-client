@@ -8,23 +8,23 @@ import {
 
 export function MainCard() {
     return (
-        <div className="relative overflow-hidden rounded-xl border border-border bg-background p-10 md:p-16">
+        <div className="relative overflow-hidden rounded-4xl border border-border bg-background p-10 md:p-16 w-fit px-4">
 
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-900/10 -z-10" />
 
-            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-border bg-red-500/5">
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-border bg-red-surface">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                <span className="text-xs tracking-widest text-red-400 uppercase font-medium">
-          Welcome to EventiGO
-        </span>
+                <span className="text-xs tracking-widest text-muted uppercase font-medium">
+                    Welcome to EventiGO
+                </span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-text-main">
                 Hello, builder.
                 <br />
                 <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-          Find your next event.
-        </span>
+                    Find your next event.
+                </span>
             </h1>
 
             {/* Description */}
