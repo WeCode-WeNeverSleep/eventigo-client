@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
+
+export const metadata: Metadata = {
+  title: "EventiGO",
+  description: "Manage your events seamlessly",
+  icons: {
+    icon: "icons/favicon.ico",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -11,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
