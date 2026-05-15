@@ -12,8 +12,8 @@ export function MainCard() {
 
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-900/10 -z-10" />
 
-            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-red-500/30 bg-red-500/5">
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-border bg-red-500/5">
+                <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 <span className="text-xs tracking-widest text-red-400 uppercase font-medium">
           Welcome to EventiGO
         </span>
