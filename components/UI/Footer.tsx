@@ -9,24 +9,21 @@ export function Footer() {
             EVENTIGO · BUILT FOR MODERN EVENTS
           </div>
           <div className="flex items-center gap-8 font-sans text-main">
-            <a
-              href="#"
-              className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+            <p
+              className="text-sm text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
             >
               Code of Conduct
-            </a>
-            <a
-              href="#"
-              className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+            </p>
+            <p
+              className="text-sm text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
             >
               Sponsors
-            </a>
-            <a
-              href="#"
-              className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+            </p>
+            <p
+              className="text-sm text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
             >
               Press Kit
-            </a>
+            </p>
           </div>
         </div>
       </div>
