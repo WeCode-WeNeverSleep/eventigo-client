@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="265554ad-34f8-43d3-9284-c073a3beb9ba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/question-component/QuestionForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/question-component/QuestionForm.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="265554ad-34f8-43d3-9284-c073a3beb9ba" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +29,65 @@
     <commands />
     <urls />
   </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.3591066631489794" />
+      <entry key="MS500" value="2.3565295413840666" />
+      <entry key="S2" value="6.647444194795192" />
+      <entry key="S5" value="12.014240038324079" />
+      <entry key="S10" value="21.019659468607664" />
+      <entry key="S30" value="48.02248384707419" />
+      <entry key="S60" value="64.6264632582317" />
+      <entry key="M2" value="77.31345312527726" />
+      <entry key="M5" value="88.72565329833256" />
+      <entry key="M10" value="93.83823310389616" />
+      <entry key="M15" value="95.76818587007169" />
+      <entry key="M30" value="98.51429740155618" />
+      <entry key="H1" value="105.11632657999372" />
+      <entry key="H2" value="117.9499632778792" />
+      <entry key="H4" value="131.6263759459441" />
+      <entry key="D1" value="150.18167493447922" />
+      <entry key="W1" value="154.28487266714012" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="2.115603817590302E-114" />
+      <entry key="S60" value="1.4545115391739947E-57" />
+      <entry key="M2" value="3.813805893296074E-29" />
+      <entry key="M5" value="4.2908510030072884E-12" />
+      <entry key="M10" value="2.071436941595682E-6" />
+      <entry key="M15" value="1.624979219048786E-4" />
+      <entry key="M30" value="0.012747467274124654" />
+      <entry key="H1" value="0.11290468225066957" />
+      <entry key="H2" value="0.3360129197674837" />
+      <entry key="H4" value="0.5796662140986667" />
+      <entry key="D1" value="0.9131238045418564" />
+      <entry key="W1" value="0.9871005199530402" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.306146158109317" />
+      <entry key="MS500" value="2.3381730272578047" />
+      <entry key="S2" value="6.626149675124017" />
+      <entry key="S5" value="11.997900291465877" />
+      <entry key="S10" value="21.00692534899348" />
+      <entry key="S30" value="48.0141892074387" />
+      <entry key="S60" value="64.61989234433669" />
+      <entry key="M2" value="77.30751901456105" />
+      <entry key="M5" value="88.7214929980638" />
+      <entry key="M10" value="93.8356423032867" />
+      <entry key="M15" value="95.76648070586603" />
+      <entry key="M30" value="98.52598646136663" />
+      <entry key="H1" value="105.22849049352284" />
+      <entry key="H2" value="118.28538910539523" />
+      <entry key="H4" value="132.20563226391297" />
+      <entry key="D1" value="151.0947040680154" />
+      <entry key="W1" value="155.27195882979893" />
+    </decayedShown>
+  </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
@@ -52,6 +108,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "feat/question",
     "js.debugger.nextJs.config.created.client": "true",
@@ -86,8 +143,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.31033.145" />
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
       </set>
     </attachedChunks>
   </component>
@@ -99,7 +156,8 @@
       <option name="presentableId" value="Default" />
       <updated>1778672375393</updated>
       <workItem from="1778672376560" duration="670000" />
-      <workItem from="1778674505407" duration="9428000" />
+      <workItem from="1778674505407" duration="9911000" />
+      <workItem from="1779436042091" duration="67000" />
     </task>
     <servers />
   </component>
