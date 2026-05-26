@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function NavbarLogo() {
@@ -7,16 +8,20 @@ export function NavbarLogo() {
       className="flex items-center gap-2.5 select-none group"
       aria-label="EventiGO home"
     >
-      {/* src: /path/to/eventigo-logo */}
-      <img alt="EventiGO" className="h-8 w-8 rounded-full" />
-
-      <div className="flex flex-col leading-none">
-        <span className="font-title text-base font-bold tracking-wide text-text-main transition-colors duration-200 group-hover:text-primary">
-          EventiGO
-        </span>
-        <span className="text-[10px] font-sans text-text-muted tracking-widest uppercase">
-          v.2026
-        </span>
+      <div className="group flex items-center gap-4 cursor-pointer">
+        <Image
+          src="/logo.png"
+          alt="EventiGO Logo"
+          width={50}
+          height={50}
+          className="border border-primary rounded-full"
+        />
+        <div className="flex flex-col">
+          <h1 className="font-black text-xl">
+            Eventi<span className="text-primary">GO</span>
+          </h1>
+          <p className="font-extralight text-sm">v.2026</p>
+        </div>
       </div>
     </Link>
   );

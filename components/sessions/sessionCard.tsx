@@ -20,17 +20,17 @@ export const SessionCard = ({ session }: SessionCardProps) => {
       .join("")
       .toUpperCase();
 
-  const countdown = useCountdown(session.starTime);
-  const getDuration = (ms: Date) => {
-    const hours = ms.getHours();
-    const minutes = ms.getMinutes();
+  const countdown = useCountdown(session.startTime);
+  const getDuration = (s: Date) => {
+    const hours = s.getHours();
+    const minutes = s.getMinutes();
     return { hours, minutes };
   };
-  const starTime = getDuration(session.starTime);
+  const starTime = getDuration(session.startTime);
   const endTime = getDuration(session.endTime);
 
   return (
-    <div className="w-full flex flex-col rounded-4xl bg-background border border-border p-6 shadow-2xl">
+    <div className="w-full sm:max-w-1/2 lg:max-w-1/3 flex flex-col rounded-4xl bg-background border border-border p-6 shadow-2xl">
       <div className="flex items-center justify-between mb-4">
         {session.isLive ? (
           <div className="flex items-center gap-2 bg-live/30 px-3 py-1.5 rounded-full border border-live/70">

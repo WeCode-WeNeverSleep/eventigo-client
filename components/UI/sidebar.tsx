@@ -1,27 +1,12 @@
 import { faCalendar, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons/faMicrophone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
+import { NavbarLogo } from "../navbar/navbar-logo";
 
 export const Sidebar = () => {
   return (
     <div className="sticky top-0 shrink-0 h-screen w-fit flex px-8 py-10 flex-col gap-20">
-      <div className="group flex items-center gap-4 cursor-pointer">
-        <Image
-          src="/logo.png"
-          alt="EventiGO Logo"
-          width={50}
-          height={50}
-          className="border border-primary rounded-full"
-        />
-        <div className="flex flex-col">
-          <h1 className="font-black text-xl">
-            Eventi<span className="text-primary">GO</span>
-          </h1>
-          <p className="font-extralight text-sm">v.2026</p>
-        </div>
-      </div>
-
+      <NavbarLogo />
       <div className="flex flex-col gap-5">
         <div
           className="group flex items-center justify-between py-2 px-3 rounded-l-3xl 
