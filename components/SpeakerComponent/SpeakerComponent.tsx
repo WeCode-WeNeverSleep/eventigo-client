@@ -1,60 +1,167 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  fetchSpeakersWithSessions,
+  type BackendSpeaker,
+} from "@/lib/api/speakers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLinkedin,
+  faGithub,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
-type Speaker = {
-    id: string;
-    name: string;
-    description?: string;
-};
+function getLinkIcon(url: string) {
+  if (url.includes("twitter.com") || url.includes("x.com")) return faXTwitter;
+  if (url.includes("linkedin.com")) return faLinkedin;
+  if (url.includes("github.com")) return faGithub;
+  return faGlobe;
+}
 
-const SpeakerComponent = () => {
-    const [speakers, setSpeakers] = useState<Speaker[]>([]);
-    const [loading, setLoading] = useState(true);
+function getCleanLinkLabel(url: string): string {
+  try {
+    const domain = new URL(url).hostname.replace("www.", "");
+    if (domain === "linkedin.com") {
+      const pathParts = new URL(url).pathname.split("/").filter(Boolean);
+      return pathParts[1] ? `@${pathParts[1]}` : "LinkedIn";
+    }
+    if (
+      domain === "twitter.com" ||
+      domain === "x.com" ||
+      domain === "github.com"
+    ) {
+      const handle = new URL(url).pathname.replace(/\//g, "");
+      return handle ? `@${handle}` : domain;
+    }
+    return domain;
+  } catch {
+    return "Website";
+  }
+}
 
-    useEffect(() => {
-        const fetchSpeakers = async () => {
-            try {
-                const res = await fetch("/api/speakers");
-                const data = await res.json();
-                setSpeakers(data);
-            } catch (error) {
-                console.error("Error loading speakers: ", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
 
-        fetchSpeakers();
-    }, []);
+export default function SpeakerComponent() {
+  const [activeSpeaker, setActiveSpeaker] = useState<BackendSpeaker | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(true);
 
-    if (loading) return <div>Loading...</div>;
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const speakerData = await fetchSpeakersWithSessions();
+        const now = new Date();
 
+        const currentLiveSpeaker = speakerData.find((speaker) =>
+          speaker.sessions?.some((session) => {
+            const start = new Date(session.startTime);
+            const end = new Date(session.endTime);
+            return now >= start && now <= end;
+          }),
+        );
+
+        // Fallback to the first speaker from the array if no session is currently active
+        setActiveSpeaker(currentLiveSpeaker || speakerData[0] || null);
+      } catch (error) {
+        console.error("Error loading speaker component matrix:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  if (loading) {
     return (
-        <div className="
-        w-full
-        rounded-[28px]
-        border border-[#132238]
-        bg-[#07101D]
-        p-8
-        shadow-[0_0_40px_rgba(0,0,0,0.35)]
-        ">
-            <h2 className="text-lg font-bold mb-3">Speakers</h2>
-
-            <ul className="space-y-3">
-                {speakers.map((speaker) => (
-                    <li key={speaker.id} className="p-2 border rounded">
-                        <p className="font-medium">{speaker.name}</p>
-                        {speaker.description && (
-                            <p className="text-sm text-gray-500">
-                                {speaker.description}
-                            </p>
-                        )}
-                    </li>
-                ))}
-            </ul>
-        </div>
+      <div className="w-full rounded-3xl border border-slate-850 bg-background p-8 text-text-muted font-mono text-xs tracking-widest uppercase animate-pulse">
+        Loading Presentation Profile...
+      </div>
     );
-};
+  }
 
-export default SpeakerComponent;
+  if (!activeSpeaker) {
+    return (
+      <div className="w-full rounded-3xl border border-slate-850 bg-background p-8 text-center text-text-muted font-sans text-sm">
+        No speaker profiles assigned to this session window.
+      </div>
+    );
+  }
+
+  // Get active session metadata if available
+  const currentSession = activeSpeaker.sessions?.[0];
+
+  return (
+    <div className="w-full rounded-3xl border border-border bg-background p-6 md:p-8 text-text-main shadow-[0_0_40px_rgba(0,0,0,0.3)] backdrop-blur-md">
+      {/* Dynamic Upper Label Header */}
+      <h2 className="text-[11px] font-mono tracking-[0.2em] text-primary font-bold uppercase mb-6">
+        Speaker
+      </h2>
+
+      {/* Main Avatar & Profile Text Meta Layout Container Row */}
+      <div className="flex items-center gap-4 mb-6">
+        {activeSpeaker.avatarUrl ? (
+          <img
+            src={activeSpeaker.avatarUrl}
+            alt={activeSpeaker.fullName}
+            className="h-16 w-16 rounded-full object-cover border border-border shadow-[0_0_15px_rgba(34,211,238,0.15)]"
+          />
+        ) : (
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-lg font-sans shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+            {getInitials(activeSpeaker.fullName)}
+          </div>
+        )}
+
+        <div className="flex flex-col gap-0.5">
+          <h3 className="font-sans font-bold text-xl text-text-muted tracking-tight leading-tight">
+            {activeSpeaker.fullName}
+          </h3>
+          {currentSession && (
+            <p className="font-sans text-xs text-text-muted font-medium">
+              Presenter •{" "}
+              <span className="text-text-muted">
+                {currentSession.room?.name || "Main Stage"}
+              </span>
+            </p>
+          )}
+        </div>
+      </div>
+
+      <p className="font-sans text-sm text-text-muted leading-relaxed mb-6 whitespace-pre-line">
+        {activeSpeaker.bio ||
+          "No biography details shared for this speaker profile node."}
+      </p>
+
+      {activeSpeaker.links && activeSpeaker.links.length > 0 && (
+        <div className="flex flex-col gap-3 pt-2 border-t border-slate-900">
+          {activeSpeaker.links.map((linkStr, idx) => (
+            <a
+              key={`${linkStr}-${idx}`}
+              href={linkStr}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 text-sm text-text-muted hover:text-primary transition-colors duration-200 w-fit"
+            >
+              <FontAwesomeIcon
+                icon={getLinkIcon(linkStr)}
+                className="h-4 w-4 text-primary group-hover:text-primary transition-colors"
+              />
+              <span className="font-sans tracking-wide">
+                {getCleanLinkLabel(linkStr)}
+              </span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
