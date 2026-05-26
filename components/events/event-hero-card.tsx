@@ -12,7 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import type { ApiEvent, ApiSession } from "@/lib/types";
+import type { Event } from "@/types/event";
+import type { Session } from "@/types/sessions";
 
 export interface EventHeroCardConfig {
   titleSplitAt?: number;
@@ -20,7 +21,7 @@ export interface EventHeroCardConfig {
 }
 
 export interface EventHeroCardProps {
-  event: ApiEvent;
+  event: Event;
   config?: EventHeroCardConfig;
 }
 
@@ -31,12 +32,12 @@ interface DayItem {
   isLive: boolean;
 }
 
-function formatDateRange(startDate: string, endDate: string): string {
+function formatDateRange(startDate: Date, endDate: Date): string {
   const opts: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" };
-  return `${new Date(startDate).toLocaleDateString("en-US", opts)} – ${new Date(endDate).toLocaleDateString("en-US", { ...opts, year: "numeric" })}`;
+  return `${startDate.toLocaleDateString("en-US", opts)} – ${endDate.toLocaleDateString("en-US", { ...opts, year: "numeric" })}`;
 }
 
-function buildDays(startDate: string, endDate: string, sessions: ApiSession[]): DayItem[] {
+function buildDays(startDate: Date, endDate: Date, sessions: Session[]): DayItem[] {
   const SHORT_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -66,7 +67,7 @@ function buildDays(startDate: string, endDate: string, sessions: ApiSession[]): 
   return days;
 }
 
-function countUniqueSpeakers(sessions: ApiSession[]): number {
+function countUniqueSpeakers(sessions: Session[]): number {
   return new Set(sessions.flatMap((s) => s.speakers.map((sp) => sp.id))).size;
 }
 
@@ -86,9 +87,12 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
   const { titleSplitAt, ticketHref } = config;
 
   const dateRange = formatDateRange(event.startDate, event.endDate);
-  const year = new Date(event.startDate).getFullYear().toString();
+  const year = event.startDate.getFullYear().toString();
   const days = buildDays(event.startDate, event.endDate, event.sessions);
-  const liveSession = event.sessions.find((s) => s.isLive) ?? null;
+  const liveSession =
+    event.sessions
+      .filter((s) => s.isLive)
+      .sort((a, b) => b.startTime.getTime() - a.startTime.getTime())[0] ?? null;
   const titlePrefix = titleSplitAt != null ? event.title.slice(0, titleSplitAt) : "";
   const titleMain = titleSplitAt != null ? event.title.slice(titleSplitAt) : event.title;
 
@@ -176,9 +180,9 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
               <div className="flex items-center gap-4 font-sans text-xs text-text-muted">
                 <span className="flex items-center gap-1.5">
                   <FontAwesomeIcon icon={faClock} className="h-3 w-3" />
-                  {new Date(liveSession.startTime).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
+                  {liveSession.startTime.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
                   {" — "}
-                  {new Date(liveSession.endTime).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
+                  {liveSession.endTime.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <FontAwesomeIcon icon={faLocationDot} className="h-3 w-3" />
