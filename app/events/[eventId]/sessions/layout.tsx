@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { NavbarSession } from "@/components/navbar/navbar-session";
 import { Sidebar } from "@/components/UI/sidebar";
+
+export const metadata: Metadata = {
+  title: "EventiGO",
+  icons: {
+    icon: "icons/favicon.ico",
+  },
+};
 
 export default function SessionsLayout({
   children,
