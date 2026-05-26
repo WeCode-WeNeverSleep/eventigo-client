@@ -14,7 +14,7 @@ export default function QuestionLayout({
 }) {
   return (
     <section className="flex">
-      <main className="flex-1 overflow-y-auto p-5">{children}</main>
+      <main className="flex-1">{children}</main>
     </section>
   );
 }

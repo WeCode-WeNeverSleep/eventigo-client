@@ -70,7 +70,6 @@ export default function SpeakerComponent() {
           }),
         );
 
-        // Fallback to the first speaker from the array if no session is currently active
         setActiveSpeaker(currentLiveSpeaker || speakerData[0] || null);
       } catch (error) {
         console.error("Error loading speaker component matrix:", error);
@@ -83,7 +82,7 @@ export default function SpeakerComponent() {
 
   if (loading) {
     return (
-      <div className="w-full rounded-3xl border border-slate-850 bg-background p-8 text-text-muted font-mono text-xs tracking-widest uppercase animate-pulse">
+      <div className="w-full rounded-3xl border border-slate-850 bg-background p-8 text-text-muted font-mono text-xs tracking-widest uppercase animate-pulse shadow-[0_0_40px_rgba(0,0,0,0.35)]">
         Loading Presentation Profile...
       </div>
     );
@@ -91,23 +90,20 @@ export default function SpeakerComponent() {
 
   if (!activeSpeaker) {
     return (
-      <div className="w-full rounded-3xl border border-slate-850 bg-background p-8 text-center text-text-muted font-sans text-sm">
+      <div className="w-full rounded-3xl border border-border bg-background p-8 text-center text-text-muted font-sans text-sm shadow-[0_0_40px_rgba(0,0,0,0.35)]">
         No speaker profiles assigned to this session window.
       </div>
     );
   }
 
-  // Get active session metadata if available
   const currentSession = activeSpeaker.sessions?.[0];
 
   return (
-    <div className="w-full rounded-3xl border border-border bg-background p-6 md:p-8 text-text-main shadow-[0_0_40px_rgba(0,0,0,0.3)] backdrop-blur-md">
-      {/* Dynamic Upper Label Header */}
+    <div className="w-full rounded-3xl border border-border bg-background p-6 md:p-8 text-text-main shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md">
       <h2 className="text-[11px] font-mono tracking-[0.2em] text-primary font-bold uppercase mb-6">
         Speaker
       </h2>
 
-      {/* Main Avatar & Profile Text Meta Layout Container Row */}
       <div className="flex items-center gap-4 mb-6">
         {activeSpeaker.avatarUrl ? (
           <img
