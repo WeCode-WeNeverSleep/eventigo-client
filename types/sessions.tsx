@@ -8,6 +8,7 @@ export interface Session {
   startTime: Date;
   endTime: Date;
   capacity: number | null;
+  eventId: string;
   room: Room;
   isLive: boolean;
   speakers: Speaker[];
