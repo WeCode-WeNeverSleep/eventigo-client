@@ -16,7 +16,6 @@ export default async function EventPage({ params }: EventPageProps) {
 
   const session = await getSessionById(eventId, sessionId);
 
-  console.log("SESSION DETAIL:", session);
   return (
     <main className="min-h-screen bg-background text-text-main px-4 md:px-8">
       <div className="mx-auto max-w-7xl">
@@ -31,7 +30,7 @@ export default async function EventPage({ params }: EventPageProps) {
             <QuestionForm />
           </div>
           <div className="lg:col-span-4">
-            <Speaker />
+            <Speaker speakers={session.speakers} />
           </div>
         </section>
       </div>
