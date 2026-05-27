@@ -7,6 +7,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 interface SessionCardProps {
   session: Session;
@@ -105,10 +106,13 @@ export const SessionCard = ({ session }: SessionCardProps) => {
         </div>
       </div>
 
-      <button className="mt-auto w-full bg-text-muted/10 hover:bg-text-muted/40 border border-white/10 rounded-full py-3 flex items-center justify-center gap-2 text-sm font-bold transition-all">
-        Join the session
+      <Link
+        href={`/events/${session.eventId}/sessions/${session.id}`}
+        className="mt-auto w-full bg-text-muted/10 hover:bg-text-muted/40 border border-white/10 rounded-full py-3 flex items-center justify-center gap-2 text-sm font-bold transition-all"
+      >
+        {session.isLive ? "Join the session" : "View session"}
         <FontAwesomeIcon icon={faChevronCircleRight} />
-      </button>
+      </Link>
     </div>
   );
 };
