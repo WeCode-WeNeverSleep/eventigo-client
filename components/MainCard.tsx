@@ -6,11 +6,18 @@ import {
     faSmile,
 } from '@fortawesome/free-solid-svg-icons'
 
+const DARK_GRADIENT = `
+  radial-gradient(ellipse at 12% 115%, rgba(99, 40, 180, 0.22) 0%, transparent 52%),
+  radial-gradient(ellipse at 90% -5%,  rgba(19, 220, 246, 0.07) 0%, transparent 48%),
+  rgb(10, 18, 28)
+`;
+
 export function MainCard() {
     return (
-        <div className="relative overflow-hidden rounded-4xl border border-border bg-background p-10 md:p-16 w-fit px-4">
-
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-900/10 -z-10" />
+        <div
+            className="relative overflow-hidden rounded-4xl border border-border p-10 md:p-16 w-full max-w-7xl mx-auto"
+            style={{ background: DARK_GRADIENT }}
+        >
 
             <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-border bg-red-surface">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />

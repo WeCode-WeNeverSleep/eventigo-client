@@ -2,8 +2,8 @@
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="max-w-7xl mx-auto px-6 py-8">
+    <footer className="w-full border-t border-border bg-background">
+      <div className="w-full py-8 xl:px-[150px] lg:px-[150px] px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="text-xs tracking-widest text-slate-500 uppercase font-medium font-sans">
             EVENTIGO · BUILT FOR MODERN EVENTS

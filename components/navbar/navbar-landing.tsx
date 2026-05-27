@@ -10,7 +10,7 @@ import Link from "next/link";
 export function NavbarLanding() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-screen-xl items-center justify-between px-4 sm:px-6">
+      <div className="w-full flex h-14 items-center justify-between xl:px-[150px] lg:px-[150px] px-4 sm:px-6">
         <NavbarLogo />
 
         <div className="flex flex-1 items-center justify-center px-4">

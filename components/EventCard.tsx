@@ -46,15 +46,15 @@ export function EventCard({
                 <p className="text-text-muted text-base leading-relaxed">{description}</p>
             </div>
 
-            <div className="space-y-2 mb-6 border-2 border-border pt-4 flex items-center rounded-2xl px-4">
-                <div className="flex items-center gap-2 text-sm text-text-muted">
+            <div className="mb-6 border-2 border-border py-3 flex items-center justify-center gap-4 rounded-2xl px-4">
+                <div className="flex items-center gap-2 text-sm text-text-muted whitespace-nowrap">
                     <FontAwesomeIcon icon={faClock} className="w-4 h-4 text-primary" />
                     <span>{time}</span>
                 </div>
-                <div className="w-px h-5 bg-border mx-4" />
-                <div className="flex items-center gap-2 text-sm text-text-muted">
-                    <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-primary" />
-                    <span>{location}</span>
+                <div className="w-px h-5 bg-border shrink-0" />
+                <div className="flex items-center gap-2 text-sm text-text-muted min-w-0">
+                    <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-primary shrink-0" />
+                    <span className="truncate">{location}</span>
                 </div>
             </div>
 
