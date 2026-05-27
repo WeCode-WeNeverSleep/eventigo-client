@@ -26,10 +26,13 @@ export default function SessionHeroCard({ session }: SessionHeroCardProps) {
       <div className="flex flex-col min-h-100 justify-between relative z-10">
         <div className="mb-5 flex flex-wrap items-center gap-3 text-xs uppercase tracking-widest text-text-muted">
           <span
-            className={`rounded-full px-3 py-1 font-medium text-text-main ${
-              session.isLive ? "bg-live" : "bg-primary/20"
-            }`}
+            className={`inline-flex items-center gap-2 rounded-full px-3 py-1 font-medium text-text-main ${session.isLive ? "bg-live" : "bg-primary/20"
+              }`}
           >
+            {session.isLive && (
+              <span className="h-2 w-2 rounded-full bg-red-700 animate-pulse" />
+            )}
+
             {session.isLive ? "Live Now" : "Upcoming"}
           </span>
 
