@@ -13,11 +13,10 @@ interface Props {
   session: Session;
 }
 
-export function ScheduleEventCard({
-  session,
-}: Props) {
+export function ScheduleEventCard({ session }: Props) {
   return (
     <div className="rounded-3xl border border-border bg-card/50 p-6 backdrop-blur">
+      
       <div className="flex items-center justify-between">
         {session.isLive ? (
           <span className="inline-flex items-center gap-2 rounded-full bg-live/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-live">
@@ -31,7 +30,7 @@ export function ScheduleEventCard({
         )}
 
         <span className="text-xs uppercase tracking-widest text-text-muted">
-          {session.room.name}
+          {session.room?.name}
         </span>
       </div>
 
@@ -44,44 +43,44 @@ export function ScheduleEventCard({
       </p>
 
       <div className="mt-5 flex flex-wrap gap-5 text-sm text-text-muted">
+        
         <div className="flex items-center gap-2">
           <FontAwesomeIcon icon={faClock} />
 
-          {session.startTime.toLocaleTimeString(
-            "en-US",
-            {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            }
-          )}
+          {new Date(session.startTime).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          })}
 
-          -
+          {" - "}
 
-          {session.endTime.toLocaleTimeString(
-            "en-US",
-            {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            }
-          )}
+          {new Date(session.endTime).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          })}
         </div>
 
         <div className="flex items-center gap-2">
           <FontAwesomeIcon icon={faLocationDot} />
-          {session.room.name}
+          {session.room?.name}
         </div>
       </div>
 
-        {session.speakers.map((speaker) => (
+      {/* SPEAKERS */}
+      {session.speakers?.length > 0 && (
+        <div className="mt-5 flex flex-wrap gap-2">
+          {session.speakers.map((speaker) => (
             <span
-                key={speaker.id}
-                className="rounded-full border border-border px-3 py-1 text-xs"
+              key={speaker.id}
+              className="rounded-full border border-border px-3 py-1 text-xs"
             >
-                {speaker.fullName}
-            </span>))
-        }
+              {speaker.fullName}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
