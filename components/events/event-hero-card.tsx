@@ -147,7 +147,7 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
               </Link>
             )}
             <Link
-              href={`/events/${event.id}`}
+              href={`/events/${event.id}/schedule`}
               className={[
                 "group inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-sans text-sm font-semibold transition-all duration-300",
                 ticketHref
