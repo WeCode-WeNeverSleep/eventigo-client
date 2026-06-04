@@ -1,10 +1,11 @@
-'use client'
+"use client";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faArrowRight, faBroadcastTower,
-    faSmile,
-} from '@fortawesome/free-solid-svg-icons'
+  faArrowRight,
+  faBroadcastTower,
+} from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const DARK_GRADIENT = `
   radial-gradient(ellipse at 12% 115%, rgba(99, 40, 180, 0.22) 0%, transparent 52%),
@@ -13,47 +14,49 @@ const DARK_GRADIENT = `
 `;
 
 export function MainCard() {
-    return (
-        <div
-            className="relative overflow-hidden rounded-4xl border border-border p-10 md:p-16 w-full max-w-7xl mx-auto"
-            style={{ background: DARK_GRADIENT }}
+  return (
+    <div
+      className="relative overflow-hidden rounded-4xl border border-border p-10 md:p-16 w-full max-w-7xl mx-auto"
+      style={{ background: DARK_GRADIENT }}
+    >
+      <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-border bg-red-surface">
+        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+        <span className="text-xs tracking-widest text-muted uppercase font-medium">
+          Welcome to EventiGO
+        </span>
+      </div>
+
+      <h1 className="text-4xl md:text-5xl font-bold mb-6 text-text-main">
+        Hello, builder.
+        <br />
+        <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+          Find your next event.
+        </span>
+      </h1>
+
+      <p className="text-base md:text-lg text-text-muted mb-10 max-w-2xl leading-relaxed">
+        EventGO is the home for conferences, workshops and meetups curated for
+        people building the modern web. Browse what's live now and what's coming
+        up below.
+      </p>
+
+      <div className="flex flex-col sm:flex-row items-center gap-4">
+        <Link
+          href="/events"
+          className="flex items-center gap-2 bg-primary hover:opacity-90 text-black font-semibold py-3 px-6 rounded-full transition-colors"
         >
+          Browse events
+          <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+        </Link>
 
-            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-border bg-red-surface">
-                <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                <span className="text-xs tracking-widest text-muted uppercase font-medium">
-                    Welcome to EventiGO
-                </span>
-            </div>
-
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-text-main">
-                Hello, builder.
-                <br />
-                <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-                    Find your next event.
-                </span>
-            </h1>
-
-            {/* Description */}
-            <p className="text-base md:text-lg text-text-muted mb-10 max-w-2xl leading-relaxed">
-                EventGO is the home for conferences, workshops and meetups curated for people building the modern web.
-                Browse what's live now and what's coming up below.
-            </p>
-
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-
-                <button className="flex items-center gap-2 bg-primary hover:opacity-90 text-black font-semibold py-3 px-6 rounded-full transition-colors">
-                    Browse events
-                    <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                </button>
-
-                <button className="flex items-center gap-2 border border-border hover:border-primary text-text-main hover:text-primary font-semibold py-3 px-6 rounded-full transition-colors">
-                    <FontAwesomeIcon icon={faBroadcastTower} className="w-4 h-4" />
-                    What's live right now
-                </button>
-
-            </div>
-        </div>
-    )
+        <Link
+          href="/live"
+          className="flex items-center gap-2 border border-border hover:border-primary text-text-main hover:text-primary font-semibold py-3 px-6 rounded-full transition-colors"
+        >
+          <FontAwesomeIcon icon={faBroadcastTower} className="w-4 h-4" />
+          What's live right now
+        </Link>
+      </div>
+    </div>
+  );
 }

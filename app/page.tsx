@@ -14,7 +14,7 @@ export default async function Home() {
     <div className="flex flex-col min-h-screen">
       <NavbarLanding />
 
-      <main className="flex-1 w-full xl:px-[150px] lg:px-[150px] px-4 sm:px-6">
+      <main className="flex-1 w-full xl:px-38 lg:px-38 px-4 sm:px-6">
         <section className="flex justify-center pt-20 pb-16">
           <MainCard />
         </section>
