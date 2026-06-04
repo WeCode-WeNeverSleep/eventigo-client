@@ -61,4 +61,3 @@ export function SpeakerCard({ speaker }: SpeakerCardProps) {
     </div>
   );
 }
-
