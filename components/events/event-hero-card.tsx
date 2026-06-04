@@ -37,7 +37,11 @@ function formatDateRange(startDate: Date, endDate: Date): string {
   return `${startDate.toLocaleDateString("en-US", opts)} – ${endDate.toLocaleDateString("en-US", { ...opts, year: "numeric" })}`;
 }
 
-function buildDays(startDate: Date, endDate: Date, sessions: Session[]): DayItem[] {
+function buildDays(
+  startDate: Date,
+  endDate: Date,
+  sessions: Session[],
+): DayItem[] {
   const SHORT_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -93,8 +97,10 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
     event.sessions
       .filter((s) => s.isLive)
       .sort((a, b) => b.startTime.getTime() - a.startTime.getTime())[0] ?? null;
-  const titlePrefix = titleSplitAt != null ? event.title.slice(0, titleSplitAt) : "";
-  const titleMain = titleSplitAt != null ? event.title.slice(titleSplitAt) : event.title;
+  const titlePrefix =
+    titleSplitAt != null ? event.title.slice(0, titleSplitAt) : "";
+  const titleMain =
+    titleSplitAt != null ? event.title.slice(titleSplitAt) : event.title;
 
   const stats = [
     { value: countUniqueSpeakers(event.sessions), label: "Speakers" },
@@ -124,7 +130,9 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
           <div className="flex flex-col leading-none gap-1">
             <h1 className="font-title font-bold text-5xl md:text-6xl lg:text-7xl">
               <span className="text-text-main">{titlePrefix}</span>
-              <span className={isLight ? "text-primary" : "text-text-main"}>{titleMain}</span>
+              <span className={isLight ? "text-primary" : "text-text-main"}>
+                {titleMain}
+              </span>
             </h1>
             <span className="font-title font-bold text-5xl md:text-6xl lg:text-7xl text-text-muted">
               {year}.
@@ -143,7 +151,10 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
               >
                 <FontAwesomeIcon icon={faTicket} className="h-3.5 w-3.5" />
                 Get a ticket
-                <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
+                />
               </Link>
             )}
             <Link
@@ -155,14 +166,19 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
                   : "border border-primary/40 bg-primary/10 text-primary hover:border-primary/70 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(19,220,246,0.20)]",
               ].join(" ")}
             >
-              {!ticketHref && <FontAwesomeIcon icon={faTableList} className="h-3.5 w-3.5" />}
+              {!ticketHref && (
+                <FontAwesomeIcon icon={faTableList} className="h-3.5 w-3.5" />
+              )}
               View full schedule
-              <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+              <FontAwesomeIcon
+                icon={faChevronRight}
+                className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
             </Link>
           </div>
         </div>
 
-        <div className="flex w-full flex-col gap-2.5 lg:w-[380px] xl:w-[420px]">
+        <div className="flex w-full flex-col gap-2.5 lg:w-95 xl:w-100">
           {liveSession ? (
             <div className="rounded-2xl border border-border bg-background/70 p-4 backdrop-blur-sm shadow-sm">
               <div className="mb-3 flex items-center justify-between">
@@ -180,9 +196,17 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
               <div className="flex items-center gap-4 font-sans text-xs text-text-muted">
                 <span className="flex items-center gap-1.5">
                   <FontAwesomeIcon icon={faClock} className="h-3 w-3" />
-                  {liveSession.startTime.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
+                  {liveSession.startTime.toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}
                   {" — "}
-                  {liveSession.endTime.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
+                  {liveSession.endTime.toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <FontAwesomeIcon icon={faLocationDot} className="h-3 w-3" />
@@ -192,43 +216,88 @@ export function EventHeroCard({ event, config = {} }: EventHeroCardProps) {
             </div>
           ) : (
             <div className="rounded-2xl border border-border bg-background/50 p-5 text-center">
-              <p className="font-sans text-sm text-text-muted">No session currently on stage</p>
+              <p className="font-sans text-sm text-text-muted">
+                No session currently on stage
+              </p>
             </div>
           )}
 
-          {days.length > 0 && (
-            <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${days.length}, minmax(0, 1fr))` }}>
-              {days.map((day) => (
+          {days.length > 0 &&
+            (() => {
+              const MAX = 5;
+              const todayIndex = days.findIndex((d) => d.isToday);
+              const center = todayIndex >= 0 ? todayIndex : 0;
+              const start = Math.max(
+                0,
+                Math.min(center - Math.floor(MAX / 2), days.length - MAX),
+              );
+              const visibleDays = days.slice(start, start + MAX);
+
+              return (
                 <div
-                  key={`${day.shortDay}-${day.date}`}
-                  className={[
-                    "flex flex-col items-center justify-center rounded-xl border px-2 py-3 text-center transition-all duration-200",
-                    day.isToday
-                      ? "border-primary/60 bg-primary/10 shadow-[0_0_12px_rgba(19,220,246,0.10)]"
-                      : "border-border bg-background/50 hover:border-border/80",
-                  ].join(" ")}
+                  className="grid gap-2"
+                  style={{
+                    gridTemplateColumns: `repeat(${MAX}, minmax(0, 1fr))`,
+                  }}
                 >
-                  <span className={["font-sans text-[10px] font-semibold uppercase tracking-widest", day.isToday ? "text-primary/70" : "text-text-muted/70"].join(" ")}>
-                    {day.shortDay}
-                  </span>
-                  <span className={["font-title text-2xl font-bold leading-tight", day.isToday ? "text-primary" : "text-text-main"].join(" ")}>
-                    {day.date}
-                  </span>
-                  {day.isLive && (
-                    <span className="font-sans text-[9px] font-semibold uppercase tracking-widest leading-none mt-0.5 text-live">
-                      Live
-                    </span>
-                  )}
+                  {visibleDays.map((day) => (
+                    <Link
+                      href={`/events/${event.id}/schedule`}
+                      key={`${day.shortDay}-${day.date}`}
+                      className={[
+                        "flex flex-col items-center justify-center rounded-xl border px-2 py-3 text-center transition-all duration-200 hover:-translate-y-1",
+                        day.isToday
+                          ? "border-primary/60 bg-primary/10 shadow-[0_0_12px_rgba(19,220,246,0.10)]"
+                          : "border-border bg-background/50 hover:border-border/80",
+                      ].join(" ")}
+                    >
+                      <span
+                        className={[
+                          "font-sans text-[10px] font-semibold uppercase tracking-widest",
+                          day.isToday
+                            ? "text-primary/70"
+                            : "text-text-muted/70",
+                        ].join(" ")}
+                      >
+                        {day.shortDay}
+                      </span>
+                      <span
+                        className={[
+                          "font-title text-2xl font-bold leading-tight",
+                          day.isToday ? "text-primary" : "text-text-main",
+                        ].join(" ")}
+                      >
+                        {day.date}
+                      </span>
+                      {day.isLive && (
+                        <span className="font-sans text-[9px] font-semibold uppercase tracking-widest leading-none mt-0.5 text-live">
+                          Live
+                        </span>
+                      )}
+                    </Link>
+                  ))}
                 </div>
-              ))}
-            </div>
-          )}
+              );
+            })()}
 
-          <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))` }}>
+          <div
+            className="grid gap-2"
+            style={{
+              gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))`,
+            }}
+          >
             {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center justify-center rounded-xl border border-border bg-background/50 px-3 py-3 text-center">
-                <span className="font-title text-2xl font-bold text-text-main">{stat.value}</span>
-                <span className="font-sans text-[9px] font-semibold uppercase tracking-widest text-text-muted/70 mt-0.5">{stat.label}</span>
+              <div
+                key={stat.label}
+                className="flex flex-col items-center justify-center rounded-xl border 
+                border-border bg-background/50 px-3 py-3 text-center hover:bg-primary/10 hover:delay-100"
+              >
+                <span className="font-title text-2xl font-bold text-text-main">
+                  {stat.value}
+                </span>
+                <span className="font-sans text-[9px] font-semibold uppercase tracking-widest text-text-muted/70 mt-0.5">
+                  {stat.label}
+                </span>
               </div>
             ))}
           </div>

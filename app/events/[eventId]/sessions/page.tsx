@@ -4,6 +4,9 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { faPodcast } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Session } from "@/types/sessions";
+import { Event } from "@/types/event";
+import { getEventById } from "@/lib/api/event";
+import { EventHeroCard } from "@/components/events/event-hero-card";
 
 interface PageProps {
   params: { eventId: string };
@@ -13,9 +16,11 @@ export default async function SessionsPage({ params }: PageProps) {
   const { eventId } = await params;
 
   let eventSessions: Session[] = [];
+  let event: Event;
 
   try {
     eventSessions = await getSessionsByEvent(eventId);
+    event = await getEventById(eventId);
   } catch (error) {
     console.error(error);
     return <div>Error loading sessions.</div>;
@@ -33,6 +38,7 @@ export default async function SessionsPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col gap-12">
+      <EventHeroCard event={event} />
       {liveSessions.length > 0 && (
         <section>
           <div className="flex flex-col gap-2 mb-6">
