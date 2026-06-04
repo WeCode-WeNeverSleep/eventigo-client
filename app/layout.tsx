@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "EventiGO",
   description: "Manage your events seamlessly",
   icons: {
-    icon: "icons/favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 

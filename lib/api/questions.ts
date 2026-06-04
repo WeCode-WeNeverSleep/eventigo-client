@@ -1,3 +1,5 @@
+"use server";
+
 export type Question = {
   id: string;
   content: string;
@@ -8,7 +10,7 @@ export type Question = {
 };
 
 export async function getQuestionsBySession(
-  sessionId: string
+  sessionId: string,
 ): Promise<Question[]> {
   const baseUrl = process.env.API_URL;
 
@@ -24,3 +26,4 @@ export async function getQuestionsBySession(
 
   return res.json();
 }
+

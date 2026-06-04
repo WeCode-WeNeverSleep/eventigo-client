@@ -39,7 +39,7 @@ export default function QuestionForm({ sessionId }: QuestionFormProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [socketError, setSocketError] = useState<string | null>(null);
   const [upvotedQuestionIds, setUpvotedQuestionIds] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function QuestionForm({ sessionId }: QuestionFormProps) {
     socket.on("new_question", (newQuestion: Question) => {
       setQuestions((currentQuestions) => {
         const alreadyExists = currentQuestions.some(
-          (question) => question.id === newQuestion.id
+          (question) => question.id === newQuestion.id,
         );
 
         if (alreadyExists) {
@@ -77,7 +77,7 @@ export default function QuestionForm({ sessionId }: QuestionFormProps) {
         }
 
         return [newQuestion, ...currentQuestions].sort(
-          (a, b) => b.upvotes - a.upvotes
+          (a, b) => b.upvotes - a.upvotes,
         );
       });
     });
@@ -88,9 +88,9 @@ export default function QuestionForm({ sessionId }: QuestionFormProps) {
           .map((question) =>
             question.id === payload.id
               ? { ...question, upvotes: payload.upvotes }
-              : question
+              : question,
           )
-          .sort((a, b) => b.upvotes - a.upvotes)
+          .sort((a, b) => b.upvotes - a.upvotes),
       );
     });
 
@@ -243,3 +243,4 @@ export default function QuestionForm({ sessionId }: QuestionFormProps) {
     </div>
   );
 }
+
