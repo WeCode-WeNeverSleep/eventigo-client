@@ -6,10 +6,16 @@ import { getSessionById } from "@/lib/api/session";
 import type { SessionPageProps } from "@/types/sessionPageProps";
 import Link from "next/link";
 
+const socketUrl = process.env.SOCKET_URL;
+
 export default async function SessionPage({ params }: SessionPageProps) {
   const { eventId, sessionId } = await params;
 
   const session = await getSessionById(eventId, sessionId);
+
+  if (!socketUrl) {
+    return "SOCKET_URL is missing";
+  }
 
   return (
     <main className="min-h-screen bg-background text-text-main px-4 md:px-8">
@@ -26,7 +32,7 @@ export default async function SessionPage({ params }: SessionPageProps) {
 
         <section className="mt-8 grid gap-4 md:grid-cols-1 lg:grid-cols-12 items-start">
           <div className="lg:col-span-8">
-            <QuestionForm sessionId={session.id} />
+            <QuestionForm sessionId={session.id} socketUrl={socketUrl} />
           </div>
           <div className="lg:col-span-4">
             <Speaker speakers={session.speakers} />

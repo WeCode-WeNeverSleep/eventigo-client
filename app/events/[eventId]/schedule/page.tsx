@@ -1,5 +1,7 @@
 import { EventSchedule } from "@/components/schedule/EventSchedule";
+import { ScheduleSection } from "@/components/schedule/ScheduleSection";
 import { getSessionsByEvent } from "@/lib/api/session";
+import { Session } from "@/types/sessions";
 interface PageProps {
   params: {
     eventId: string;
@@ -7,13 +9,33 @@ interface PageProps {
 }
 
 export default async function SchedulePage({ params }: PageProps) {
-  const { eventId } = params;
+  const { eventId } = await params;
 
-  const sessions = await getSessionsByEvent(eventId).catch(() => []);
+  let eventSessions: Session[] = [];
+
+  try {
+    eventSessions = await getSessionsByEvent(eventId);
+  } catch (error) {
+    console.error(error);
+    return <div>Error loading sessions.</div>;
+  }
+
+  const sessionsByDate = eventSessions.reduce<Record<string, Session[]>>(
+    (acc, session) => {
+      const date = session.startTime.toISOString().split("T")[0];
+
+      if (!acc[date]) acc[date] = [];
+
+      acc[date].push(session);
+
+      return acc;
+    },
+    {},
+  );
 
   return (
     <div className="px-6 py-12">
-      <EventSchedule sessions={sessions} />
+      <ScheduleSection groupedSessions={sessionsByDate} />
     </div>
   );
 }

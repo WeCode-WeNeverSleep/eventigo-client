@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QuestionTypeBar from "./QuestionTypeBar";
 import { getQuestionsBySession, type Question } from "@/lib/api/questions";
-import { socket } from "@/lib/socket";
+import { createSocket } from "@/lib/socket";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp as faThumbsUpRegular } from "@fortawesome/free-regular-svg-icons";
 import { faThumbsUp as faThumbsUpSolid } from "@fortawesome/free-solid-svg-icons";
 
 type QuestionFormProps = {
   sessionId: string;
+  socketUrl: string;
 };
 
 type QuestionUpvotedPayload = {
@@ -33,7 +34,10 @@ const formatTimeAgo = (dateString: string) => {
   return `${Math.floor(diff / 86400)} j`;
 };
 
-export default function QuestionForm({ sessionId }: QuestionFormProps) {
+export default function QuestionForm({
+  sessionId,
+  socketUrl,
+}: QuestionFormProps) {
   const [question, setQuestion] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -41,6 +45,9 @@ export default function QuestionForm({ sessionId }: QuestionFormProps) {
   const [upvotedQuestionIds, setUpvotedQuestionIds] = useState<Set<string>>(
     new Set(),
   );
+
+  const socketRef = useRef(createSocket(socketUrl));
+  const socket = socketRef.current;
 
   useEffect(() => {
     async function loadQuestions() {
@@ -243,4 +250,3 @@ export default function QuestionForm({ sessionId }: QuestionFormProps) {
     </div>
   );
 }
-

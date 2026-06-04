@@ -5,7 +5,7 @@ import { Sidebar } from "@/components/UI/sidebar";
 export const metadata: Metadata = {
   title: "EventiGO",
   icons: {
-    icon: "icons/favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 

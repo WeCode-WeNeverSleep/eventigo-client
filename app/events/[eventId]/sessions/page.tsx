@@ -3,7 +3,6 @@ import { getSessionsByEvent } from "@/lib/api/session";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { faPodcast } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ScheduleSection } from "@/components/schedule/ScheduleSection";
 import type { Session } from "@/types/sessions";
 
 interface PageProps {
@@ -11,7 +10,7 @@ interface PageProps {
 }
 
 export default async function SessionsPage({ params }: PageProps) {
-  const { eventId } = params;
+  const { eventId } = await params;
 
   let eventSessions: Session[] = [];
 
@@ -25,33 +24,15 @@ export default async function SessionsPage({ params }: PageProps) {
   const now = new Date();
 
   const upcomingAndLive = eventSessions.filter(
-    (session) => new Date(session.endTime) > now
+    (session) => new Date(session.endTime) > now,
   );
 
-  const liveSessions = upcomingAndLive.filter(
-    (session) => session.isLive
-  );
+  const liveSessions = upcomingAndLive.filter((session) => session.isLive);
 
-  const upcomingSessions = upcomingAndLive.filter(
-    (session) => !session.isLive
-  );
-
-  const sessionsByDate = eventSessions.reduce<Record<string, Session[]>>(
-    (acc, session) => {
-      const date = session.startTime.toISOString().split("T")[0];
-
-      if (!acc[date]) acc[date] = [];
-
-      acc[date].push(session);
-
-      return acc;
-    },
-    {}
-  );
+  const upcomingSessions = upcomingAndLive.filter((session) => !session.isLive);
 
   return (
     <div className="flex flex-col gap-12">
-
       {liveSessions.length > 0 && (
         <section>
           <div className="flex flex-col gap-2 mb-6">
@@ -93,8 +74,6 @@ export default async function SessionsPage({ params }: PageProps) {
           </div>
         </section>
       )}
-
-      <ScheduleSection groupedSessions={sessionsByDate} />
 
       {upcomingAndLive.length === 0 && (
         <div className="text-center py-20 opacity-50">
