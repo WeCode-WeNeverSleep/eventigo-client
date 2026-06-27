@@ -11,7 +11,7 @@ export function SpeakerCard({ speaker }: SpeakerCardProps) {
       <div className="flex items-start gap-4 mb-4">
         <div className="w-16 h-16 rounded-full border-2 border-primary/20 group-hover:border-primary/40 transition-colors flex-shrink-0 overflow-hidden bg-secondary/50">
           <img
-            src={speaker.profilePictureUrl}
+            src={speaker.avatarUrl}
             alt={speaker.fullName}
             className="rounded-full w-full h-full object-cover"
           />

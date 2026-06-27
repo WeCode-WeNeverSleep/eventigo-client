@@ -84,9 +84,9 @@ export const SessionCard = ({ session }: SessionCardProps) => {
               style={{ backgroundColor: i % 2 === 0 ? "#13DCF6" : "#c611ff" }}
               className="w-10 h-10 rounded-full border-2 border-border flex items-center bg-red-500 justify-center text-xs font-bold text-primary"
             >
-              {speaker.profilePictureUrl ? (
+              {speaker.avatarUrl ? (
                 <img
-                  src={speaker.profilePictureUrl}
+                  src={speaker.avatarUrl}
                   className="rounded-full w-full h-full object-cover"
                 />
               ) : (

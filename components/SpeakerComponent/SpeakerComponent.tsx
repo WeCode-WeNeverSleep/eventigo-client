@@ -135,4 +135,3 @@ export default function SpeakerComponent({ speakers }: SpeakerComponentProps) {
     </div>
   );
 }
-

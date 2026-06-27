@@ -3,7 +3,7 @@ import { Session } from "./sessions";
 export interface Speaker {
   id: string;
   fullName: string;
-  profilePictureUrl: string;
+  avatarUrl: string;
   bio: string;
   externalLinks: string[];
   session?: Session;
