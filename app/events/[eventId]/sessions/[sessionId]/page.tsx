@@ -32,7 +32,17 @@ export default async function SessionPage({ params }: SessionPageProps) {
 
         <section className="mt-8 grid gap-4 md:grid-cols-1 lg:grid-cols-12 items-start">
           <div className="lg:col-span-8">
-            <QuestionForm sessionId={session.id} socketUrl={socketUrl} />
+            <QuestionForm 
+              sessionId={session.id} 
+              socketUrl={socketUrl} 
+              status={
+                session.isLive 
+                  ? "live" 
+                  : new Date() > session.endTime 
+                    ? "passed" 
+                    : "upcoming"
+              } 
+            />
           </div>
           <div className="lg:col-span-4">
             <Speaker speakers={session.speakers} />

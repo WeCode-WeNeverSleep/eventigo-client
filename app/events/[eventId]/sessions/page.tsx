@@ -4,9 +4,9 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { faPodcast } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Session } from "@/types/sessions";
-import { Event } from "@/types/event";
-import { getEventById } from "@/lib/api/event";
 import { EventHeroCard } from "@/components/events/event-hero-card";
+import { getEventById } from "@/lib/api/event";
+import { Event } from "@/types/event";
 
 interface PageProps {
   params: { eventId: string };
@@ -32,6 +32,10 @@ export default async function SessionsPage({ params }: PageProps) {
     (session) => new Date(session.endTime) > now,
   );
 
+  const passedSessions = eventSessions.filter(
+    (session) => new Date(session.endTime) <= now,
+  );
+
   const liveSessions = upcomingAndLive.filter((session) => session.isLive);
 
   const upcomingSessions = upcomingAndLive.filter((session) => !session.isLive);
@@ -39,7 +43,6 @@ export default async function SessionsPage({ params }: PageProps) {
   return (
     <div className="flex flex-col gap-12">
       <EventHeroCard event={event} />
-
       {liveSessions.length > 0 && (
         <section>
           <div className="flex flex-col gap-2 mb-6">
@@ -76,6 +79,27 @@ export default async function SessionsPage({ params }: PageProps) {
 
           <div className="flex gap-5 overflow-x-auto pb-4">
             {upcomingSessions.map((session) => (
+              <SessionCard key={session.id} session={session} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {passedSessions.length > 0 && (
+        <section>
+          <div className="flex flex-col gap-2 mb-6">
+            <p className="flex items-center uppercase text-xs text-text-muted tracking-widest gap-2">
+              <FontAwesomeIcon icon={faCalendar} className="text-primary" />
+              already happened
+            </p>
+
+            <h2 className="text-3xl font-bold tracking-widest font-title">
+              Passed Sessions
+            </h2>
+          </div>
+
+          <div className="flex gap-5 overflow-x-auto pb-4">
+            {passedSessions.map((session) => (
               <SessionCard key={session.id} session={session} />
             ))}
           </div>
