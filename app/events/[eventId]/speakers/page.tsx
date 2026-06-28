@@ -1,5 +1,6 @@
 import { SpeakerCard } from "@/components/SpeakerComponent/SpeakerCard";
-import { fetchSpeakersWithSessions, type BackendSpeaker } from "@/lib/api/speakers";
+import { fetchSpeakersWithSessions } from "@/lib/api/speakers";
+import { Speaker } from "@/types/speakers";
 
 interface PageProps {
   params: { eventId: string };
@@ -7,19 +8,23 @@ interface PageProps {
 
 export default async function SpeakerPage({ params }: PageProps) {
   const { eventId } = await params;
-  let speakers: BackendSpeaker[] = [];
-
+  let speakers: Speaker[] = [];
 
   try {
     const allSpeakers = await fetchSpeakersWithSessions();
-    speakers = allSpeakers.filter((speaker) =>
-      speaker.sessions.some((session) => session.eventId === eventId),
+
+    speakers = allSpeakers.filter(
+      (speaker) =>
+        speaker.sessions?.some((session) => session.eventId === eventId) ??
+        false,
     );
   } catch (error) {
     console.error("Failed to load speakers:", error);
     return (
       <div className="min-h-screen bg-background text-text-main px-4 md:px-8 flex items-center justify-center">
-        <p className="text-xl font-semibold">Error loading speakers. Please try again later.</p>
+        <p className="text-xl font-semibold">
+          Error loading speakers. Please try again later.
+        </p>
       </div>
     );
   }
@@ -32,20 +37,23 @@ export default async function SpeakerPage({ params }: PageProps) {
             Our Speakers
           </h1>
           <p className="text-text-muted max-w-2xl mx-auto">
-            Meet the experts and visionaries sharing their knowledge and experience.
+            Meet the experts and visionaries sharing their knowledge and
+            experience.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
           {speakers.map((speaker) => (
-            <SpeakerCard 
-              key={speaker.id} 
+            <SpeakerCard
+              key={speaker.id}
               speaker={{
+                id: speaker.id,
                 fullName: speaker.fullName,
                 avatarUrl: speaker.avatarUrl || "",
                 bio: speaker.bio,
-                externalLinks: speaker.links,
-              }} 
+                externalLinks: speaker.externalLinks || [],
+              }}
+              eventId={eventId}
             />
           ))}
         </div>
