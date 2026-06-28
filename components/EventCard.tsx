@@ -20,9 +20,23 @@ export function EventCard({
   event,
   cta = "View event details",
 }: EventCardProps) {
+  const now = new Date();
   const isLive = isLiveStatus(event.startDate, event.endDate);
+  const isPassed = now > new Date(event.endDate);
   const { day, month } = formatEventDate(event.startDate);
   const time = `${event.startDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })} - ${event.endDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}`;
+
+  const getStatusLabel = () => {
+    if (isLive) return "LIVE";
+    if (isPassed) return "PASSED";
+    return "UPCOMING";
+  };
+
+  const getStatusStyles = () => {
+    if (isLive) return "text-live bg-red-500/5 border-red-500/20";
+    if (isPassed) return "text-text-muted opacity-50 bg-slate-500/5"; // faded look for past events
+    return "text-text-muted";
+  };
 
   return (
     <div className="border border-border rounded-4xl p-6 bg-background hover:bg-surface transition-colors h-full flex flex-col w-full max-w-sm px-4">
@@ -31,15 +45,14 @@ export function EventCard({
           <h3 className="text-3xl font-bold text-primary">{day}</h3>
           <h3 className="text-text-muted font-thin">{month}</h3>
         </div>
+
         <span
-          className={`text-xs tracking-widest uppercase flex items-center gap-2 rounded-3xl border border-border px-3 py-1 ${
-            isLive ? "text-live bg-red-500/5" : "text-text-muted"
-          }`}
+          className={`text-xs tracking-widest uppercase flex items-center gap-2 rounded-3xl border border-border px-3 py-1 ${getStatusStyles()}`}
         >
           {isLive && (
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
           )}
-          {isLive ? "LIVE" : "UPCOMING"}
+          {getStatusLabel()}
         </span>
       </div>
 
