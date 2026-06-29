@@ -1,4 +1,5 @@
 import { Session } from "@/types/sessions";
+import { notFound } from "next/navigation";
 
 type SessionDTO = Omit<Session, "startTime" | "endTime" | "isLive"> & {
   startTime: string;
@@ -52,6 +53,9 @@ export async function getSessionById(eventId: string, sessionId: string) {
   });
 
   if (!res.ok) {
+    if (res.status === 404) {
+      notFound();
+    }
     throw new Error(`Failed to fetch session: ${res.status} ${res.statusText}`);
   }
 
@@ -66,4 +70,3 @@ export async function getSessionById(eventId: string, sessionId: string) {
       new Date() <= new Date(session.endTime),
   };
 }
-

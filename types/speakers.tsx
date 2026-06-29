@@ -6,5 +6,5 @@ export interface Speaker {
   avatarUrl: string;
   bio: string;
   externalLinks: string[];
-  session?: Session;
+  sessions: Session[];
 }

@@ -4,8 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faLink } from "@fortawesome/free-solid-svg-icons";
 
 import { SpeakerCardProps } from "@/types/speakerCardProps";
+import Link from "next/link";
 
-export function SpeakerCard({ speaker }: SpeakerCardProps) {
+export function SpeakerCard({ speaker, eventId }: SpeakerCardProps) {
+  const speakersId = speaker.id;
+
   return (
     <div className="border border-border rounded-4xl p-6 bg-background hover:bg-surface transition-colors h-full flex flex-col w-full max-w-sm px-4 cursor-pointer hover:border-primary/30 group shadow-[0_0_40px_rgba(0,0,0,0.35)]">
       <div className="flex items-start gap-4 mb-4">
@@ -54,10 +57,13 @@ export function SpeakerCard({ speaker }: SpeakerCardProps) {
         </div>
       )}
 
-      <button className="flex items-center justify-center gap-2 text-primary hover:bg-background text-sm font-medium transition-colors border border-border rounded-4xl py-2 group-hover:border-primary/30">
+      <Link
+        href={`/events/${eventId}/speakers/${speakersId}`}
+        className="flex items-center justify-center gap-2 text-primary hover:bg-background text-sm font-medium transition-colors border border-border rounded-4xl py-2 group-hover:border-primary/30"
+      >
         View Profile
         <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-      </button>
+      </Link>
     </div>
   );
 }

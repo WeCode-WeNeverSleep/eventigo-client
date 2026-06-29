@@ -58,7 +58,7 @@ export const Sidebar = ({ event }: SidebarProps) => {
         </Link>
 
         <Link
-          href={`/speakers`}
+          href={`/events/${eventId}/speakers`}
           className="group flex items-center justify-between py-2 px-3 rounded-l-3xl 
           hover:bg-linear-to-r hover:from-primary/55 hover:to-transparent 
           transition-colors duration-150 cursor-pointer"

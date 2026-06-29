@@ -18,7 +18,18 @@ export default async function SessionsLayout({
   params: Promise<{ eventId: string }>;
 }) {
   const { eventId } = await params;
-  const event = await getEventById(eventId);
+  
+  let event;
+  try {
+    event = await getEventById(eventId);
+  } catch (error) {
+    console.error("Error fetching event in layout:", error);
+    return (
+      <div className="min-h-screen bg-background text-text-main px-4 md:px-8 flex items-center justify-center">
+        <p className="text-xl font-semibold">Event not found or failed to load.</p>
+      </div>
+    );
+  }
 
   const dashboard = process.env.DASHBOARD_URL;
   if (!dashboard) {
