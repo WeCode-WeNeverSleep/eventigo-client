@@ -32,31 +32,35 @@ export function ScheduleView({ sessions }: ScheduleViewProps) {
     return (
       <EmptyState
         icon="calendar"
-        title="Programme non disponible"
-        message="Les sessions de cet événement n'ont pas encore été publiées."
+        title="Schedule not available"
+        message="Sessions for this event have not been published yet."
       />
     );
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <DayTabs days={sortedDays} activeDay={activeDay} onChange={setActiveDay} />
-
-      <div className="flex flex-col gap-3 mt-1">
-        {featured ? (
-          <FeaturedSession session={featured} />
-        ) : (
-          <EmptyState
-            icon="calendar"
-            title="Aucune session ce jour"
-            message="Aucune session n'est programmée pour cette journée."
-          />
-        )}
-
-        {rest.map((session) => (
-          <SessionRow key={session.id} session={session} />
-        ))}
+      <div className="flex justify-center">
+        <DayTabs
+          days={sortedDays}
+          activeDay={activeDay}
+          onChange={setActiveDay}
+        />
       </div>
+
+      {featured ? (
+        <FeaturedSession session={featured} />
+      ) : (
+        <EmptyState
+          icon="calendar"
+          title="Schedule not available"
+          message="Sessions for this event have not been published yet."
+        />
+      )}
+
+      {rest.map((session) => (
+        <SessionRow key={session.id} session={session} />
+      ))}
     </div>
   );
 }

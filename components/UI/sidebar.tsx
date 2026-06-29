@@ -34,10 +34,10 @@ export const Sidebar = ({ event }: SidebarProps) => {
       pathname === targetPath || pathname.startsWith(targetPath + "/");
 
     if (isActive) {
-      return `${baseLinkStyles} outline-none bg-gradient-to-r from-primary to-transparent text-text-main border-r-2 border-primary`;
+      return `${baseLinkStyles} bg-gradient-to-r from-primary to-transparent text-text-main border-r-2 border-primary`;
     }
 
-    return `${baseLinkStyles} outline-none text-text-muted hover:text-text-main`;
+    return `${baseLinkStyles} text-text-muted hover:text-text-main`;
   };
 
   return (
