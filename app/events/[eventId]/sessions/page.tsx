@@ -56,7 +56,7 @@ export default async function SessionsPage({ params }: PageProps) {
             </h2>
           </div>
 
-          <div className="flex gap-5 overflow-x-auto pb-4">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {liveSessions.map((session) => (
               <SessionCard key={session.id} session={session} />
             ))}
@@ -77,7 +77,7 @@ export default async function SessionsPage({ params }: PageProps) {
             </h2>
           </div>
 
-          <div className="flex gap-5 overflow-x-auto pb-4">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {upcomingSessions.map((session) => (
               <SessionCard key={session.id} session={session} />
             ))}
@@ -98,7 +98,7 @@ export default async function SessionsPage({ params }: PageProps) {
             </h2>
           </div>
 
-          <div className="flex gap-5 overflow-x-auto pb-4">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {passedSessions.map((session) => (
               <SessionCard key={session.id} session={session} />
             ))}

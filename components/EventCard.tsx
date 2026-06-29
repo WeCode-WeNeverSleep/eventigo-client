@@ -34,7 +34,7 @@ export function EventCard({
 
   const getStatusStyles = () => {
     if (isLive) return "text-live bg-red-500/5 border-red-500/20";
-    if (isPassed) return "text-text-muted opacity-50 bg-slate-500/5"; // faded look for past events
+    if (isPassed) return "text-text-muted opacity-50 bg-slate-500/5";
     return "text-text-muted";
   };
 

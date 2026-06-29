@@ -49,7 +49,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="w-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {events.slice(0, 4).map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
