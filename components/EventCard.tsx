@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export interface EventCardProps {
   event: Event;
-  cat?: string;
+  cta?: string;
 }
 
 export function EventCard({
