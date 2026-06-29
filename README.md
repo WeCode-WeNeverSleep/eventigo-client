@@ -43,6 +43,7 @@ npm run lint
 | `/events`                                           | All events listing           |
 | `/events/:eventId/sessions`                         | Event sessions               |
 | `/events/:eventId/sessions/:sessionId`              | Session detail + Q&A         |
+| `/live`                                             | Currently live events        |
 | `/events/:eventId/schedule`                         | Day-by-day schedule          |
 | `/events/:eventId/speakers`                         | Event speakers               |
 | `/about`                                            | About page                   |
@@ -60,7 +61,7 @@ utils/        — Utility functions
 
 ## Contributors
 
-### Rindra — [`rindraniaina`](https://github.com/rindraniaina)
+### Rindra — `STD24069` [`rindraniaina`](https://github.com/rindraniaina)
 *Project setup, Next.js configuration, Tailwind CSS, metadata*
 - Project initialization (initial commit, create-next-app)
 - Tailwind v3 → v4 migration
@@ -78,7 +79,7 @@ utils/        — Utility functions
 - Speakers page per event
 - Various fixes (client/server components, dark/light mode, ProfilePictureUrl, sidebar hover/active, card size)
 
-### Jessy — [`jessyrand`](https://github.com/jessyrand)
+### Jessy — `STD24004` [`jessyrand`](https://github.com/jessyrand)
 *UI components, live Q&A, design system*
 - Footer component
 - EventCard component
@@ -96,7 +97,7 @@ utils/        — Utility functions
 - API environment variable renaming
 - Utilities (Event interface, EventUtils, EventCard style)
 
-### Manda — [`Manda Tiavina`](https://github.com/MandaTiavina)
+### Manda — `STD24083` [`Manda Tiavina`](https://github.com/MandaTiavina)
 *Navigation, static pages, API integration, documentation*
 - Navbar components (landing + session)
 - MainCard (session page)
@@ -108,7 +109,7 @@ utils/        — Utility functions
 - About page
 - Project README
 
-### Mayah — [`mayahNeko`](https://github.com/mayahNeko)
+### Mayah — `STD24156` [`mayahNeko`](https://github.com/mayahNeko)
 *Q&A, speakers, interactive schedule*
 - QuestionForm, QuestionTypeBar
 - Question deletion
