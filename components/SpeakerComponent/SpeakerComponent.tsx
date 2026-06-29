@@ -1,6 +1,6 @@
 "use client";
 
-import type { BackendSpeaker } from "@/lib/api/speakers";
+import type { Speaker } from "@/types/speakers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 type SpeakerComponentProps = {
-  speakers: BackendSpeaker[];
+  speakers: Speaker[];
 };
 
 function getLinkIcon(url: string) {
@@ -106,9 +106,9 @@ export default function SpeakerComponent({ speakers }: SpeakerComponentProps) {
                   "No biography details shared for this speaker profile node."}
               </p>
 
-              {speaker.links && speaker.links.length > 0 && (
-                <div className="flex flex-col gap-3 pt-4 border-t border-slate-900">
-                  {speaker.links.map((linkStr, idx) => (
+               {speaker.externalLinks && speaker.externalLinks.length > 0 && (
+                 <div className="flex flex-col gap-3 pt-4 border-t border-slate-900">
+                   {speaker.externalLinks.map((linkStr, idx) => (
                     <a
                       key={`${linkStr}-${idx}`}
                       href={linkStr}
